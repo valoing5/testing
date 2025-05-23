@@ -58,11 +58,49 @@
 // // sect.removeChild(text); 
 // linkPara.remove(); 
 
-const para = document.querySelector('p');
+// const para = document.querySelector('p');
 // para.style.color = 'blue'; 
 // para.style.textAlign = 'center'; // these apply inline styling to html
 
 // console.log(document.styleSheets);
 
 
-para.setAttribute('class', 'highlight');
+// para.setAttribute('class', 'highlight');
+
+
+// shopping list 
+const list = document.querySelector('ul');
+const input = document.querySelector('input');
+const button = document.querySelector('button');
+
+function addItem(e) {
+    console.log('adding item'); 
+    const currVal = input.value; 
+
+    input.value = ''; 
+    console.log(currVal);
+
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    const deleteButton = document.createElement('button');
+
+ 
+    li.appendChild(span); 
+    li.appendChild(deleteButton); 
+
+    deleteButton.addEventListener('click', () => {
+        li.remove(); 
+    })
+
+    span.textContent = currVal; 
+    deleteButton.textContent = 'Delete'; 
+
+    list.appendChild(li); 
+
+    input.focus(); 
+}
+
+
+
+
+button.addEventListener('click', addItem); 
