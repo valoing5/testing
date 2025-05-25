@@ -89,7 +89,7 @@ document.body.addEventListener('click',function(event) {
 </html> -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>JS Modifier Keys Demo</title>
@@ -97,6 +97,8 @@ document.body.addEventListener('click',function(event) {
 <body>
     <button id="btnKeys">Click me with Alt, Shift, Ctrl pressed</button>
     <p id="messageKeys"></p>
+
+    <input type="text" id="message">
 
     <script>
         let btnKeys = document.querySelector('#btnKeys');
@@ -114,6 +116,102 @@ document.body.addEventListener('click',function(event) {
             let msg = document.querySelector('#messageKeys');
             msg.textContent = `Keys: ${keys.join('+')}`;
         });
+    </script>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <title>JavaScript Keyboard Events: Key/Code</title>
+</head>
+
+<body>
+  <input type="text" id="message">
+
+  <ul id="menu">
+    <li><a id="home">home</a></li>
+    <li><a id="dashboard">Dashboard</a></li>
+    <li><a id="report">report</a></li>
+  </ul>
+
+  <div class="parent">
+
+    <button class="btn">Test</button>
+  </div>
+
+  <script>
+     let btn = document.querySelector('.btn');
+     let div = document.querySelector('.parent'); 
+
+     btn.addEventListener('click', () => {
+      alert('clicked'); 
+     })
+
+     // 1. capture 
+     // 2. actual event 
+     // 3. bubble 
+
+      parent.addEventListener('click', () => {
+      alert('partent clicked'); 
+     }, {capture: true}); // however, this makes the parent fire first since it intercepts 
+
+     let clickEvent = new Event('click'); // fires the most specific, then bubbles up
+     btn.dispatchEvent(clickEvent); 
+     console.log(clickEvent.isTrusted)
+  </script>
+</body>
+
+</html> -->
+\
+
+<!--custom events-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Custom Event</title>
+</head>
+<body>
+    <div class="note">JS Custom Event</div>
+    <script>
+        function highlight(elem) {
+            const bgColor = 'yellow';
+            elem.style.backgroundColor = bgColor;
+
+            // create the event
+            let event = new CustomEvent('highlight', {
+                detail: {
+                    backgroundColor: bgColor,
+                    test: "hello"
+                }
+            });
+            // dispatch the event
+            elem.dispatchEvent(event);
+        }
+
+        // Select the div element
+        let div = document.querySelector('.note');
+
+        // Add border style
+        function addBorder(elem) {
+            elem.style.border = "solid 1px red";
+        }
+
+        // Listen to the highlight event
+        div.addEventListener('highlight', function (e) {
+            addBorder(this);
+
+            // examine the background
+            console.log(e.detail);
+            console.log(e.test); 
+        });
+
+        // highlight div element
+        highlight(div);
     </script>
 </body>
 </html>

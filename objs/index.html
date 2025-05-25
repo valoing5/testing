@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        // modern js tutorial
+
+        // let user = {}
+
+        // user[name] = 'John'
+        // user[name] = 'Pete'
+        // delete user[name]; 
+
+        // console.log(user); 
+
+        // function isEmpty(obj) {
+
+        //     for (let key in obj) {
+        //         return false; 
+        //     }
+
+        //     return true; 
+
+        //     // return Object.entries(obj).length == 0; 
+        // }
+
+        let salaries = {
+            John: "awef",
+            Ann: 160,
+            Pete: 130,
+            blah: 'awoef'
+        }
+
+
+        function sumSalaries(obj) {
+
+            let sum = 0;
+
+            for (let key in obj) {
+
+                if (typeof obj[key] == 'number') {
+                    console.log(key); 
+                }
+                // sum += obj[key]; 
+            }
+
+            // return sum; 
+
+        }
+        
+
+        console.log(sumSalaries(salaries));
+
+        // console.log(isEmpty(o)); 
+    </script>
+</body>
+
+</html>
