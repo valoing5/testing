@@ -17,6 +17,7 @@ function divide(a, b) {
 let num0 = "";
 let num1 = "";
 let operator = "";
+let justDidEquals = false;
 let errorMsg = document.querySelector(".error");
 let digitbuttons = document.querySelector(".digits");
 let display = document.querySelector(".display");
@@ -51,8 +52,9 @@ function operate() {
         break;
     }
 
-    display.innerText = num0;
+    display.innerText = Math.round(num0 * 100) / 100;
     num1 = "";
+   
 
     operator = "";
   }
@@ -74,7 +76,12 @@ function clear() {
 }
 
 digitbuttons.addEventListener("click", (e) => {
-  // there are no operands
+  // number is entered after equals
+  if (justDidEquals) {
+    clear();
+    justDidEquals = false; 
+  }
+  // there are no operands - first number of the calculation
   if (operator === "") {
     num0 += e.target.innerText;
     display.innerText = num0;
@@ -89,7 +96,10 @@ digitbuttons.addEventListener("click", (e) => {
 clearBtn.addEventListener("click", () => clear());
 
 // equals button logic
-equals.addEventListener("click", () => operate());
+equals.addEventListener("click", () => {
+  operate();
+  justDidEquals = true;
+});
 
 plus.addEventListener("click", () => {
   operateOnOperatorTrigger();
