@@ -18,6 +18,7 @@ let num0 = "";
 let num1 = "";
 let operator = "";
 let justDidEquals = false;
+let decimalClicked = false;
 let errorMsg = document.querySelector(".error");
 let digitbuttons = document.querySelector(".digits");
 let display = document.querySelector(".display");
@@ -27,6 +28,7 @@ let plus = document.querySelector(".plus");
 let minus = document.querySelector(".minus");
 let times = document.querySelector(".multiply");
 let divid = document.querySelector(".divide");
+let decimal = document.querySelector(".decimal");
 
 function operate() {
   errorMsg.innerText = "";
@@ -34,13 +36,14 @@ function operate() {
   if (num0 !== "" && num1 !== "" && operator !== "") {
     switch (operator) {
       case "plus":
-        num0 = add(parseInt(num0), parseInt(num1));
+        console.log(num0, num1);
+        num0 = add(parseFloat(num0), parseFloat(num1));
         break;
       case "minus":
-        num0 = subtract(parseInt(num0), parseInt(num1));
+        num0 = subtract(parseFloat(num0), parseFloat(num1));
         break;
       case "multiply":
-        num0 = multiply(parseInt(num0), parseInt(num1));
+        num0 = multiply(parseFloat(num0), parseFloat(num1));
         break;
       case "divide":
         if (num1 == 0) {
@@ -48,13 +51,12 @@ function operate() {
           clear();
           break;
         }
-        num0 = divide(parseInt(num0), parseInt(num1));
+        num0 = divide(parseFloat(num0), parseFloat(num1));
         break;
     }
 
     display.innerText = Math.round(num0 * 100) / 100;
     num1 = "";
-   
 
     operator = "";
   }
@@ -65,21 +67,48 @@ function operate() {
 // the + at the end calculates 1 + 2
 function operateOnOperatorTrigger() {
   if (num0 !== "" && num1 !== "" && operator !== "") {
+    justDidEquals = false;
+      decimalClicked = false;
+
     operate();
   }
 }
 
 function clear() {
+  console.log("clearing");
   display.innerText = "";
   num0 = "";
   num1 = "";
+  decimalClicked = false;
+  justDidEquals = false;
 }
+
+decimal.addEventListener("click", (e) => {
+  if (!decimalClicked) {
+    if (justDidEquals) {
+      clear();
+      justDidEquals = false;
+    }
+    if (operator === "") {
+      num0 += ".";
+      display.innerText = num0;
+    } else {
+      // there is an operand
+      num1 += ".";
+      display.innerText = num1;
+    }
+
+    justDidEquals = false;
+  }
+
+  decimalClicked = true;
+});
 
 digitbuttons.addEventListener("click", (e) => {
   // number is entered after equals
   if (justDidEquals) {
     clear();
-    justDidEquals = false; 
+    justDidEquals = false;
   }
   // there are no operands - first number of the calculation
   if (operator === "") {
@@ -93,30 +122,44 @@ digitbuttons.addEventListener("click", (e) => {
 });
 
 // clears all variables and display
-clearBtn.addEventListener("click", () => clear());
+clearBtn.addEventListener("click", () => {
+  clear();
+  justDidEquals = false;
+
+});
 
 // equals button logic
 equals.addEventListener("click", () => {
   operate();
   justDidEquals = true;
+    decimalClicked = false;
+
 });
 
 plus.addEventListener("click", () => {
   operateOnOperatorTrigger();
   operator = "plus";
+  decimalClicked = false;
+  justDidEquals = false;
 });
 
 minus.addEventListener("click", () => {
   operateOnOperatorTrigger();
   operator = "minus";
+  decimalClicked = false;
+  justDidEquals = false;
 });
 
 times.addEventListener("click", () => {
   operateOnOperatorTrigger();
   operator = "multiply";
+  decimalClicked = false;
+  justDidEquals = false;
 });
 
 divid.addEventListener("click", () => {
   operateOnOperatorTrigger();
   operator = "divide";
+  decimalClicked = false;
+  justDidEquals = false;
 });
