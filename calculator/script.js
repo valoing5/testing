@@ -29,6 +29,7 @@ let minus = document.querySelector(".minus");
 let times = document.querySelector(".multiply");
 let divid = document.querySelector(".divide");
 let decimal = document.querySelector(".decimal");
+let back = document.querySelector(".back");
 
 function operate() {
   errorMsg.innerText = "";
@@ -120,6 +121,18 @@ digitbuttons.addEventListener("click", (e) => {
     display.innerText = num1;
   }
 });
+
+back.addEventListener('click', () => {
+
+   if (operator === "") {
+    num0 = num0.substring(0, num0.length - 1); 
+    display.innerText = num0;
+  } else {
+    // there is an operand
+    num1 = num1.substring(0, num1.length - 1); 
+    display.innerText = num1;
+  }
+})
 
 // clears all variables and display
 clearBtn.addEventListener("click", () => {
